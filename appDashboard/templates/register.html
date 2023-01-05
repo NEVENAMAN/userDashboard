@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registeration in test app</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/master.css' %}">
+    <link rel="stylesheet" href="{% static 'https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css' %}" >
+    <link rel="stylesheet" href="{% static 'css/docs_min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap_min.css' %}">
+    <style>
+        body{
+            background-image: url('static/image/backHome.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            flood-opacity: 95%;
+            flood-color: black;
+            
+        }
+        .register_container{
+            width:500px;
+            margin:70px auto;
+        }
+        .register_container form{
+            padding: 40px;
+            color: white;
+            backdrop-filter: brightness(0.5);
+            border-radius: 46px;
+            border: 1px solid black;
+            border-radius: 44px;
+        }
+        .register_container .actions{
+            display: flex;
+            justify-content: space-between;
+        }
+        .register_container h1{
+            color: #ffb74d;
+            margin: 20px;
+        }
+        .error_message{
+            color: red;
+        }
+        .nav {
+            background-color: darkgoldenrod;
+            
+        }
+        .nav-link{
+            color: white;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="register_container">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="/" role="tab" aria-controls="home" aria-selected="true"><b>Test App</b></a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="/" role="tab" aria-controls="profile" aria-selected="false">Home</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="sigin-tab" data-toggle="tab" href="/sign_in" role="tab" aria-controls="contact" aria-selected="false">Sign in</a>
+            </li>
+            
+        </ul>
+        <form action="/register_user" method="post">
+            {% csrf_token %}
+            <h1>Registeration</h1>
+            <fieldset>
+                <div class="form-group">
+                    <label for="disabledTextInput">First Name</label>
+                    <input type="text" name="first_name"  id="disabledInput" class="form-control" placeholder="First Name">
+                </div>
+                {% for message in messages %}
+                        {% if message.extra_tags == 'first_name' %}
+                            <p class="error_message">* {{message}}</p>
+                        {% endif %}
+                {% endfor %}
+                <div class="form-group">
+                    <label for="disabledTextInput">Last Name</label>
+                    <input type="text" name="last_name" class="form-control" placeholder="Last Name">
+                </div>
+                {% for message in messages %}
+                        {% if message.extra_tags == 'last_name' %}
+                            <p class="error_message">* {{message}}</p>
+                        {% endif %}
+                {% endfor %}
+                <div class="form-group">
+                    <label for="disabledTextInput">Email</label>
+                    <input type="text" name="email" class="form-control" placeholder="email">
+                </div>
+                {% for message in messages %}
+                        {% if message.extra_tags == 'email' %}
+                            <p class="error_message">* {{message}}</p>
+                        {% endif %}
+                {% endfor %}
+                <div class="form-group">
+                    <label for="disabledTextInput">Description</label>
+                    <textarea name="desc" class="form-control" placeholder="description"></textarea>
+                </div>
+                {% for message in messages %}
+                        {% if message.extra_tags == 'desc' %}
+                            <p class="error_message">* {{message}}</p>
+                        {% endif %}
+                {% endfor %}
+                <div class="form-group">
+                    <label for="disabledTextInput">Password</label>
+                    <input type="password" name="password" class="form-control" placeholder="password">
+                </div>
+                {% for message in messages %}
+                        {% if message.extra_tags == 'password_less_than' %}
+                            <p class="error_message">* {{message}}</p>
+                        {% endif %}
+                        {% if message.extra_tags == 'password_notInclude_upper' %}
+                            <p class="error_message">* {{message}}</p>
+                        {% endif %}
+                        {% if message.extra_tags == 'password_notInclude_lower' %}
+                            <p class="error_message">* {{message}}</p>
+                        {% endif %}
+                        {% if message.extra_tags == 'password_notInclude_number' %}
+                            <p class="error_message">* {{message}}</p>
+                        {% endif %}
+                        {% if message.extra_tags == 'password_symbol' %}
+                            <p class="error_message">* {{message}}</p>
+                        {% endif %}
+                {% endfor %}
+                <div class="form-group">
+                    <label for="disabledTextInput">Confirm Password</label>
+                    <input type="password" name="confirm_password" class="form-control" placeholder="Confirm password">
+                </div>
+                {% for message in messages %}
+                        {% if message.extra_tags == 'not_the_same' %}
+                            <p class="error_message">* {{message}}</p>
+                        {% endif %}
+                {% endfor %}
+                <br>
+                <button type="submit" class="btn btn-primary">Create</button>
+            </fieldset>
+        </form>
+    </div>
+</body>
+</html>

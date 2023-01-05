@@ -1,0 +1,23 @@
+.register_container{
+    width:500px;
+    margin:200px auto;
+}
+.register_container form{
+    padding: 40px;
+    color: white;
+    backdrop-filter: brightness(0.5);
+    border-radius: 46px;
+    border: 1px solid black;
+    border-radius: 44px;
+}
+.register_container .actions{
+    display: flex;
+    justify-content: space-between;
+}
+.register_container h1{
+    color: #ffb74d;
+    margin: 20px;
+}
+.error_message{
+    color: red;
+}

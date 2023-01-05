@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign in test app</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/master.css' %}">
+    <link rel="stylesheet" href="{% static 'https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css' %}" >
+    <link rel="stylesheet" href="{% static 'css/docs_min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap_min.css' %}">
+    <style>
+        body{
+            background-image: url('static/image/backHome.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            flood-opacity: 95%;
+            flood-color: black;
+            
+        }
+        .register_container{
+            width:500px;
+            margin:200px auto;
+        }
+        .register_container form{
+            padding: 30px;
+            color: white;
+            backdrop-filter: brightness(0.5);
+            border-radius: 46px;
+            border: 1px solid black;
+            border-radius: 44px;
+        }
+        .register_container .actions{
+            display: flex;
+            justify-content: space-between;
+        }
+        .register_container h1{
+            color: #ffb74d;
+            margin: 20px;
+        }
+        .register_container a{
+            color: white;
+            text-decoration: underline;
+        }
+        .error_message{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="register_container">
+        <form action="/sigin_in_process" method="post">
+            {% csrf_token %}
+            <h1>Sign in</h1>
+            <fieldset>
+                <div class="form-group">
+                    <label for="disabledTextInput">Email</label>
+                    <input type="text" name="email" class="form-control" placeholder="email">
+                </div>
+                {% for message in messages %}
+                    {% if message.extra_tags == 'user_not_found'%}
+                        <p class="error_message">* {{message}}</p>
+                    {% endif %}
+                {% endfor %}
+                <div class="form-group">
+                    <label for="disabledTextInput">Password</label>
+                    <input type="password" name="password" class="form-control" placeholder="password">
+                </div>
+                {% for message in messages %}
+                    {% if message.extra_tags == 'incorrect_password'%}
+                        <p class="error_message">* {{message}}</p>
+                    {% endif %}
+                {% endfor %}
+                <br>
+                <button type="submit" class="btn btn-primary">Sign in</button><br><br>
+                <a href="/register">Dont hava an account ? Register</a>
+            </fieldset>
+        </form>
+    </div>
+</body>
+</html>

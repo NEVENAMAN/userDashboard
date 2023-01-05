@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registeration in test app</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/master.css' %}">
+    <link rel="stylesheet" href="{% static 'https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css' %}" >
+    <link rel="stylesheet" href="{% static 'css/docs_min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap_min.css' %}">
+    <style>
+        .register_container{
+            width:1000px;
+            margin:70px 300px;
+        }
+        .register_container .actions{
+            display: flex;
+            justify-content: space-between;
+        }
+        .register_container h1{
+            margin: 20px;
+        }
+        .error_message{
+            color: red;
+        }
+        .top_users{
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+        .edit_user{
+            display: flex;
+            justify-content: space-between;
+        }
+        .edit_user form{
+            width: 400px;
+        }
+    </style>
+</head>
+<body>
+    <div class="register_container">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="/users" role="tab" aria-controls="home" aria-selected="true"><b>Test App</b></a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Home</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="sigin-tab" data-toggle="tab" href="/logout" role="tab" aria-controls="contact" aria-selected="false">Logout</a>
+            </li>
+        </ul><br><br>
+        <div class="top_users">
+            <h3>Edit User {{user.id}}</h3>
+            <form action="/users_by_admin" method="post">
+                {% csrf_token %}
+                <input type="submit" value="Return to Dashboard" class="btn btn-primary">
+            </form>
+        </div><br><br>
+        <div class="edit_user">
+            <form action="/edit_data_by_admin" method="post">
+                {% csrf_token %}
+                <h4>Edit information</h4>
+                <fieldset>
+                    <div class="form-group">
+                        <label for="disabledTextInput">First Name</label>
+                        <input type="text" name="first_name"  value="{{user.first_name}}" id="disabledInput" class="form-control" >
+                    </div>
+                    {% for message in messages %}
+                            {% if message.extra_tags == 'first_name' %}
+                                <p class="error_message">* {{message}}</p>
+                            {% endif %}
+                    {% endfor %}
+                    <div class="form-group">
+                        <label for="disabledTextInput">Last Name</label>
+                        <input type="text" name="last_name" value="{{user.last_name}}" class="form-control" placeholder="Last Name">
+                    </div>
+                    {% for message in messages %}
+                            {% if message.extra_tags == 'last_name' %}
+                                <p class="error_message">* {{message}}</p>
+                            {% endif %}
+                    {% endfor %}
+                    <div class="form-group">
+                        <label for="disabledTextInput">Email</label>
+                        <input type="text" name="email" value="{{user.email}}" class="form-control" placeholder="email">
+                    </div>
+                    {% for message in messages %}
+                            {% if message.extra_tags == 'email' %}
+                                <p class="error_message">* {{message}}</p>
+                            {% endif %}
+                    {% endfor %}
+                    <div class="form-group">
+                        <label for="disabledTextInput">Description</label>
+                        <textarea name="desc" value="{{user.desc}}" class="form-control" placeholder="{{user.desc}}"></textarea>
+                    </div>
+                    {% for message in messages %}
+                            {% if message.extra_tags == 'desc' %}
+                                <p class="error_message">* {{message}}</p>
+                            {% endif %}
+                    {% endfor %}
+                    <div class="form-group">
+                        <label for="disabledTextInput">User level</label>
+                        <input type="text" name="user_level" value="{{user.user_level}}" class="form-control" placeholder="user_level">
+                    </div>
+                    <br>
+                    <input type="hidden" value="{{user.id}}" name="userId">
+                    <button type="submit" class="btn btn-success">Update</button>
+                </fieldset>
+            </form>
+            <form action="/change_password/{{user.id}}" method="post">
+                {% csrf_token %}
+                <h4>Change password</h4>
+                <fieldset>
+                    <div class="form-group">
+                        <label for="disabledTextInput">Password</label>
+                        <input type="password" name="password" class="form-control" placeholder="password">
+                    </div>
+                    {% for message in messages %}
+                            {% if message.extra_tags == 'password_less_than' %}
+                                <p class="error_message">* {{message}}</p>
+                            {% endif %}
+                            {% if message.extra_tags == 'password_notInclude_upper' %}
+                                <p class="error_message">* {{message}}</p>
+                            {% endif %}
+                            {% if message.extra_tags == 'password_notInclude_lower' %}
+                                <p class="error_message">* {{message}}</p>
+                            {% endif %}
+                            {% if message.extra_tags == 'password_notInclude_number' %}
+                                <p class="error_message">* {{message}}</p>
+                            {% endif %}
+                            {% if message.extra_tags == 'password_symbol' %}
+                                <p class="error_message">* {{message}}</p>
+                            {% endif %}
+
+                    {% endfor %}
+                    <div class="form-group">
+                        <label for="disabledTextInput">Confirm Password</label>
+                        <input type="password" name="confirm_password" class="form-control" placeholder="Confirm password">
+                    </div>
+                    {% if message.extra_tags == 'not_the_same' %}
+                                <p class="error_message">* {{message}}</p>
+                            {% endif %}
+                    <button type="submit" class="btn btn-success">Update password</button><br><br>
+                </fieldset>
+            </form>
+            <form action="" method="post">
+                {% csrf_token %}
+                <h4>Change password</h4>
+                <fieldset>
+                    <div class="form-group">
+                        <label for="disabledTextInput">Description</label>
+                        <textarea name="desc"  value="{{user.desc}}" class="form-control" placeholder="description"></textarea>
+                    </div>
+                    {% if message.extra_tags == 'desc' %}
+                        <p class="error_message">* {{message}}</p>
+                    {% endif %}
+                    <button type="submit" class="btn btn-success">Update password</button><br><br>
+                </fieldset>
+            </form>
+       </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test app site</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/master.css' %}">
+    <link rel="stylesheet" href="{% static 'https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css' %}" >
+    <link rel="stylesheet" href="{% static 'css/docs_min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap_min.css' %}">
+    <style>
+        body{
+            background-color: black;
+        }
+        .containerr{
+            width: 1200px;
+            margin: 20px auto;
+        }
+        .containerr .backHomeImage{
+            margin-top: 20px;
+        }
+        .containerr .text_center{
+            position: absolute;
+            top: 58%;
+            left: 51%;
+            transform: translate(-50% , -50%);
+            color: white;
+            font-size: 60px;
+            font-stretch: expanded;
+            font-family: cursive;
+        }
+        .containerr img{
+            filter: brightness(0.5);
+        }
+        .cards{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin: 40px;
+            
+        }
+        .cards a{
+            color: black;
+        }
+        #sigin-tab{
+            margin-left: 800px;
+        }
+        .nav {
+            background-color: darkgoldenrod;
+            
+        }
+        .nav-link{
+            color: white;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="containerr">
+        <!-- navbar -->
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="/" role="tab" aria-controls="home" aria-selected="true"><b>Test App</b></a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="/" role="tab" aria-controls="profile" aria-selected="false">Home</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="sigin-tab" data-toggle="tab" href="/sign_in" role="tab" aria-controls="contact" aria-selected="false">Sign in</a>
+            </li>
+            
+        </ul>
+        <!-- <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab"></div>
+            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab"></div>
+            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab"></div>
+        </div> -->
+        <div class="backHomeImage">
+            <img src="{% static 'image/backHome.jpg'%}" class="img-fluid" alt="Responsive image" >
+            <div class="text_center">
+                <b>Welcome Test app </b>
+            </div>
+        </div>
+        <div class="cards">
+        <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+            <div class="card-header">Manage User</div>
+            <div class="card-body">
+              <h5 class="card-title">Primary card title</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+          </div>
+          <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
+            <div class="card-header">Edit User data</div>
+            <div class="card-body">
+              <h5 class="card-title">Secondary card title</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+          </div>
+          <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+            <div class="card-header">Allow User to edit</div>
+            <div class="card-body">
+              <h5 class="card-title">Success card title</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+          </div>
+          <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
+            <div class="card-header">Post</div>
+            <div class="card-body">
+              <h5 class="card-title">Danger card title</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+          </div>
+          <div class="card text-white bg-warning mb-3" style="max-width: 18rem;">
+            <div class="card-header">Chat Message</div>
+            <div class="card-body">
+              <h5 class="card-title">Warning card title</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+          </div>
+          <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
+            <div class="card-header">Flush Users</div>
+            <div class="card-body">
+              <h5 class="card-title">Info card title</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+          </div>
+         
+          </div>
+    </div>
+</body>
+</html>
